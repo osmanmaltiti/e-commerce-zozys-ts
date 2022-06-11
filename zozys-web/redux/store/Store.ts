@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import HomeSlice from "../feature/home/HomeSlice";
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    home: HomeSlice,
+  },
 });
 
 export default store;
