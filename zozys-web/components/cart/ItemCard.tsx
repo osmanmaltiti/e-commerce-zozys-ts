@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { Icon } from "@iconify/react";
+import { useDispatch } from "react-redux";
+import { decrement, increment } from "../../redux/feature/cart/CartSlice";
 
 interface IItemCard {
+  id: string;
   image: string;
   name: string;
   type: string;
@@ -13,6 +16,7 @@ interface IItemCard {
 }
 
 export const ItemCard: React.FC<IItemCard> = ({
+  id,
   image,
   name,
   type,
@@ -22,42 +26,44 @@ export const ItemCard: React.FC<IItemCard> = ({
   amount,
   removeItem,
 }) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className="w-[98%] flex flex-row justify-between items-center text-sm border-b border-gray-300 py-1 gap-2">
+    <div
+      style={{ gridTemplateColumns: "10% 25% 20% 15% 15% 15%" }}
+      className="w-[98%] grid justify-between items-center text-xs md:text-sm lg:text-base xl:text-lg mb-2 border-b border-gray-300 py-1 gap-y-1"
+    >
       <img
         alt=""
         src={image}
-        className="w-[3rem] lg:w-[4rem] aspect-square object-cover"
+        className="w-[2rem] lg:w-[4rem] aspect-square object-cover"
       />
-      <span className="flex flex-col self-start justify-between h-full lg:text-lg flex-grow">
-        <p className="font-medium">{name}</p>
-        <p>{type}</p>
+      <p className="font-medium">{name}</p>
+      <p>{type}</p>
+      <p>{dimension}</p>
+      <p>GHS {price}</p>
+      <p>GHS {amount}</p>
+      <p></p>
+      <span className="flex flex-row col-span-4 bg-gradient-to-r to-[#5b5b5b] from-primary-gray text-white rounded justify-center items-center gap-x-4 lg:py-1 ">
+        <button onClick={() => dispatch(decrement(id))}>
+          <Icon
+            icon="akar-icons:minus"
+            className="text-lg lg:text-xl text-white hover:cursor-pointer"
+          />
+        </button>
+        <h2 className="text-lg lg:text-xl font-semibold">{quantity}</h2>
+        <button onClick={() => dispatch(increment(id))}>
+          <Icon
+            icon="akar-icons:plus"
+            className="text-lg lg:text-xl text-white hover:cursor-pointer"
+          />
+        </button>
       </span>
-      <span className="flex flex-row flex-grow justify-between items-center h-full">
-        <span className="flex flex-col self-start justify-between h-full lg:text-lg">
-          <p>GHS {price}</p>
-          <p>{dimension}</p>
-        </span>
-        <span className="flex flex-col self-start justify-between items-center h-full lg:text-lg">
-          <span className="flex flex-row justify-center items-center gap-2 ">
-            <Icon
-              icon="akar-icons:minus"
-              className="text-lg lg:text-xl text-primary-gray"
-            />
-            <h2 className="text-lg lg:text-xl font-semibold">{quantity}</h2>
-            <Icon
-              icon="akar-icons:plus"
-              className="text-lg lg:text-xl text-primary-gray"
-            />
-          </span>
-          <p>GHS {amount}</p>
-        </span>
-        <Icon
-          onClick={removeItem}
-          icon="eva:close-outline"
-          className="text-xl text-primary-gray hover:cursor-pointer"
-        />
-      </span>
+      <Icon
+        onClick={removeItem}
+        icon="eva:close-outline"
+        className="text-xl text-primary-gray place-self-center hover:cursor-pointer"
+      />
     </div>
   );
 };

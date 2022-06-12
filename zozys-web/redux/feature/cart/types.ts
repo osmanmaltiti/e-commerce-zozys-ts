@@ -1,4 +1,5 @@
 export interface IItem {
+  id: string;
   image: string;
   name: string;
   type: string;
@@ -6,18 +7,10 @@ export interface IItem {
   dimension: string;
   quantity: number;
   amount: number;
+  stock: number;
+  description: string;
 }
 
 export const init = {
-  cart: [
-    {
-      image: "/header2.jpg",
-      name: "Wawa",
-      type: "Beam",
-      price: 35,
-      dimension: "2x4",
-      quantity: 0,
-      amount: 0,
-    },
-  ] as Array<IItem>,
+  cart: [] as Array<IItem>,
 };
