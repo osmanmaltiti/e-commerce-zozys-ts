@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import useSWR from "swr";
 import { getWood } from "../../api/homepage/wood";
 import {
@@ -16,19 +16,14 @@ import { ViewItem } from "../../components/homePage/ViewItem";
 import { IItems } from "../../redux/feature/home/type";
 
 const Home = () => {
-  const [viewItem, setViewItem] = useState<boolean>(false);
-  const [filterBy, setFilterBy] = useState<string>("type");
-  const [items, setItems] = useState<IItems[]>([]);
-  const [url, setUrl] = useState<string>("");
-
   const router = useRouter();
   const { page } = router.query;
 
-  useEffect(() => {
-    page === "wood" ? setUrl("/api/wood") : setUrl("/api/door");
-  }, [page]);
+  const [viewItem, setViewItem] = useState<boolean>(false);
+  const [filterBy, setFilterBy] = useState<string>("type");
+  const [items, setItems] = useState<IItems[]>([]);
 
-  const { data, error } = useSWR([url, filterBy], getWood);
+  const { data, error } = useSWR([`/api/${page}`, filterBy], getWood);
 
   useMemo(() => {
     setItems(data?.items as Array<IItems>);

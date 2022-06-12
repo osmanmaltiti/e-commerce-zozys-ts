@@ -65,7 +65,16 @@ const CartSlice = createSlice({
         }
       }
     },
-    removeItem: () => {},
+    removeItem: (
+      state: { cart: Array<IItem> },
+      action: PayloadAction<string>
+    ) => {
+      const { payload } = action;
+      const updateCart = current(state.cart).filter(
+        (item) => item.id !== payload
+      );
+      state.cart = [...updateCart];
+    },
   },
 });
 

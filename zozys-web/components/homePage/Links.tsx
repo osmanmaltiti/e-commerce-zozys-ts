@@ -1,5 +1,7 @@
+import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMedia } from "../../hooks/useMedia";
 
 interface ILinks {
   state: "mobile" | "desktop";
@@ -9,6 +11,9 @@ interface ILinks {
 export const Links: React.FC<ILinks> = ({ state, open }) => {
   const router = useRouter();
   const { page } = router.query;
+  const lg = useMedia("(min-width: 1024px)");
+  const currentPath = router.asPath;
+
   return (
     <ul
       className={`${
@@ -46,7 +51,26 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
       <span className="flex flex-col items-center lg:flex-row lg:place-self-end lg:gap-8">
         <li>
           <Link href="/cart">
-            <a>Cart</a>
+            {lg ? (
+              <Icon
+                icon="clarity:shopping-cart-solid"
+                className={`${
+                  currentPath.includes("cart")
+                    ? "text-primary-gray bg-white"
+                    : "text-white"
+                } text-3xl rounded-full  p-1 hover:cursor-pointer`}
+              />
+            ) : (
+              <a
+                className={`${
+                  currentPath.includes("cart")
+                    ? "text-primary-gray bg-white"
+                    : "text-white"
+                } px-6 lg:py-1 lg:rounded`}
+              >
+                Cart
+              </a>
+            )}
           </Link>
         </li>
         <li>

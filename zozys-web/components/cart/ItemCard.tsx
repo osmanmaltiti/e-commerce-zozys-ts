@@ -1,7 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
-import { decrement, increment } from "../../redux/feature/cart/CartSlice";
+import {
+  decrement,
+  increment,
+  removeItem,
+} from "../../redux/feature/cart/CartSlice";
 
 interface IItemCard {
   id: string;
@@ -12,7 +16,6 @@ interface IItemCard {
   dimension: string;
   quantity: number;
   amount: number;
-  removeItem?: () => void;
 }
 
 export const ItemCard: React.FC<IItemCard> = ({
@@ -24,7 +27,6 @@ export const ItemCard: React.FC<IItemCard> = ({
   dimension,
   quantity,
   amount,
-  removeItem,
 }) => {
   const dispatch = useDispatch();
 
@@ -60,7 +62,7 @@ export const ItemCard: React.FC<IItemCard> = ({
         </button>
       </span>
       <Icon
-        onClick={removeItem}
+        onClick={() => dispatch(removeItem(id))}
         icon="eva:close-outline"
         className="text-xl text-primary-gray place-self-center hover:cursor-pointer"
       />

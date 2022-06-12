@@ -31,20 +31,23 @@ const Cart = () => {
               <li>Amount</li>
             </ul>
             {cartItems.length > 0 ? (
-              cartItems.map((item, index) => (
-                <ItemCard
-                  key={index}
-                  id={item.id}
-                  image={item.image}
-                  name={item.name}
-                  dimension={item.dimension}
-                  quantity={item.quantity}
-                  removeItem={() => {}}
-                  amount={item.amount}
-                  type={item.type}
-                  price={item.price}
-                />
-              ))
+              [...cartItems]
+                .sort((a, b) =>
+                  a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+                )
+                .map((item, index) => (
+                  <ItemCard
+                    key={index}
+                    id={item.id}
+                    image={item.image}
+                    name={item.name}
+                    dimension={item.dimension}
+                    quantity={item.quantity}
+                    amount={item.amount}
+                    type={item.type}
+                    price={item.price}
+                  />
+                ))
             ) : (
               <h1 className="text-gray-500 m-auto">Nothing to display here</h1>
             )}
