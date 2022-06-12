@@ -16,8 +16,9 @@ router.post('/create_wood', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/', async (_, res: Response) => {
-  const woodData = await getWood();
+router.get('/', async (req: Request, res: Response) => {
+  const { filter } = req.query;
+  const woodData = await getWood(filter as string);
   res.status(200).json(woodData);
 });
 

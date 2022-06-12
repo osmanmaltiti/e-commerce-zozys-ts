@@ -1,3 +1,4 @@
+import { Door } from '@prisma/client';
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
@@ -45,12 +46,49 @@ export const createDoor = async (doorData: ICreateDoor) => {
   }
 };
 
-export const getDoor = async () => {
+export const getDoor = async (filter: string) => {
   try {
+    let items = Array();
+    let stock: any = {};
+
     const doorData = await prisma.door.findMany();
+
+    const noDuplicates = (array: any, key: string) => [
+      ...new Map(array.map((item: any) => [item[key], item])).values(),
+    ];
+
+    const filterParams = noDuplicates(doorData, filter) as Array<Door>;
+    const Filters = filterParams.map((item: any) => item[filter]);
+
+    Filters.forEach((filters: string) => {
+      const FilterByFilter = doorData.filter(
+        (item: any) => item[filter] === filters
+      );
+
+      const itemParams = noDuplicates(FilterByFilter, 'name') as Array<Door>;
+      const Items = itemParams.map((item: any) => item.name);
+
+      Items.forEach((name: string) => {
+        const filterByName = FilterByFilter.filter(
+          (item: any) => item.name === name
+        );
+        stock = { ...stock, [name]: filterByName.length };
+      });
+
+      const mapping = itemParams.map((item: any) => {
+        return {
+          ...item,
+          stock: stock[item.name],
+        };
+      });
+
+      const finalQuery = { filter: filters, data: mapping };
+      items = [...items, finalQuery];
+    });
+
     return {
       name: 'Success',
-      data: doorData,
+      items,
     };
   } catch (error) {
     if (

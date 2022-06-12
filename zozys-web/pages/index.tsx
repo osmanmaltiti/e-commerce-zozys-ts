@@ -2,23 +2,26 @@
 import { Icon } from "@iconify/react";
 import { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Header } from "../components/landingPage/Header";
 import { Navbar } from "../components/landingPage/Navbar";
 
 const LandingPage: NextPage = () => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
         <title>Zozys Enterprise</title>
       </Head>
-      <div className="w-screen h-screen flex flex-col font-poppins">
+      <div className="w-screen h-screen flex flex-col font-poppins text-white">
         <Navbar />
         <section className="w-full h-[calc(100vh-3rem)] overflow-y-auto">
           <Header />
           <main className="w-full flex flex-col">
             <div
               id="services"
-              className="w-full bg-primary-gray pt-3 pb-[10rem] lg:py-[3rem] flex flex-col lg:flex-row items-center lg:justify-around relative"
+              className="w-full bg-[#5d5d5de4] pt-3 pb-[10rem] lg:py-[3rem] flex flex-col lg:flex-row items-center lg:justify-around relative"
             >
               <span className="flex flex-col items-center lg:self-start lg:items-start">
                 <h3 className="text-2xl font-semibold text-center">
@@ -34,7 +37,7 @@ const LandingPage: NextPage = () => {
                   <li className="text-xl">Wood Related Contracts</li>
                 </ul>
               </span>
-              <div className="w-[90%] lg:w-[50%] h-[20rem] lg:h-[25rem] bg-white absolute lg:relative -bottom-[11rem] border border-primary-gray left-[50%] -translate-x-[50%] lg:translate-x-0 lg:left-0 lg:bottom-0 shadow-md">
+              <div className="w-[90%] lg:w-[50%] h-[20rem] lg:h-[25rem] bg-white absolute lg:relative -bottom-[11rem]  left-[50%] -translate-x-[50%] lg:translate-x-0 lg:left-0 lg:bottom-0 shadow-md">
                 <img
                   src="/header1.jpg"
                   alt=""
@@ -46,14 +49,22 @@ const LandingPage: NextPage = () => {
               id="inventory"
               className="w-full mt-[13rem] lg:my-[3rem] items-center flex flex-col"
             >
-              <h3 className="text-3xl font-medium text-center">
+              <h3 className="text-3xl text-primary-gray font-medium text-center">
                 EXPLORE OUR INVENTORY
               </h3>
-              <div className="w-[14rem] h-[.75rem] bg-primary-gray rounded-full"></div>
+              <div className="w-[14rem] h-[.75rem] bg-[#5d5d5de4]  rounded-full"></div>
               <span className="flex flex-col lg:flex-row gap-3 mt-8">
-                <button className="w-[20rem] h-[10rem] lg:w-[25rem] lg:h-[20rem]  border-none overflow-hidden gap-2 bg-black flex flex-col items-center relative justify-center group">
+                <button
+                  onClick={() =>
+                    router.push({
+                      pathname: "/home",
+                      query: { page: "wood" },
+                    })
+                  }
+                  className="w-[20rem] h-[10rem] lg:w-[25rem] lg:h-[20rem]  border-none overflow-hidden gap-2 bg-black flex flex-col items-center relative justify-center group"
+                >
                   <p className="z-10 text-3xl text-white">BUY WOOD</p>
-                  <div className="w-[4rem] group-hover:w-[8rem] transition-all duration-500 h-[.4rem] bg-primary-gray rounded-full z-10"></div>
+                  <div className="w-[4rem] group-hover:w-[8rem] transition-all duration-500 h-[.4rem] bg-white  rounded-full z-10"></div>
                   <img
                     src="/header2.jpg"
                     alt=""
@@ -61,9 +72,17 @@ const LandingPage: NextPage = () => {
                   />
                   <div className="absolute w-full h-full bg-[#00000062]"></div>
                 </button>
-                <button className="w-[20rem] h-[10rem] lg:w-[25rem] lg:h-[20rem] border-none overflow-hidden gap-2 bg-black flex flex-col items-center relative justify-center group">
+                <button
+                  onClick={() =>
+                    router.push({
+                      pathname: "/home",
+                      query: { page: "door" },
+                    })
+                  }
+                  className="w-[20rem] h-[10rem] lg:w-[25rem] lg:h-[20rem] border-none overflow-hidden gap-2 bg-black flex flex-col items-center relative justify-center group"
+                >
                   <p className="z-10 text-3xl text-white">BUY DOOR</p>
-                  <div className="w-[4rem] group-hover:w-[8rem] transition-all h-[.4rem] bg-primary-gray duration-500 rounded-full z-10"></div>
+                  <div className="w-[4rem] group-hover:w-[8rem] transition-all h-[.4rem] bg-white  duration-500 rounded-full z-10"></div>
                   <img
                     src="/door1.jpg"
                     alt=""
@@ -75,7 +94,7 @@ const LandingPage: NextPage = () => {
             </div>
             <div
               id="contact"
-              className="w-full bg-primary-gray flex flex-col lg:flex-row lg:justify-around items-center mt-8 py-4 lg:py-8"
+              className="w-full bg-[#5d5d5de4] flex flex-col lg:flex-row lg:justify-around items-center mt-8 py-4 lg:py-8"
             >
               <span className="flex flex-col items-center flex-shrink-0">
                 <h3 className="text-3xl font-medium">MEET THE CEO</h3>
@@ -105,21 +124,21 @@ const LandingPage: NextPage = () => {
                 </ul>
               </span>
               <div className="flex flex-col w-[95%] lg:w-[50%] bg-white items-center mt-4 lg:mt-0 py-4 gap-y-4">
-                <label className="w-[95%] border-b border-black mx-auto bg-primary-gray rounded-t-[4px] overflow-hidden">
+                <label className="w-[95%] border-b border-black mx-auto bg-[#5d5d5de4]  rounded-t-[4px] overflow-hidden">
                   <input
                     type="text"
                     className="h-[3rem] w-full bg-inherit px-3"
                     placeholder="Full Name"
                   />
                 </label>
-                <label className="w-[95%] border-b border-black mx-auto bg-primary-gray rounded-t-[4px] overflow-hidden">
+                <label className="w-[95%] border-b border-black mx-auto bg-[#5d5d5de4]  rounded-t-[4px] overflow-hidden">
                   <input
                     type="text"
                     className="h-[3rem] w-full bg-inherit px-3"
                     placeholder="Email Address"
                   />
                 </label>
-                <label className="w-[95%] border-b border-black mx-auto bg-primary-gray rounded-t-[4px] overflow-hidden">
+                <label className="w-[95%] border-b border-black mx-auto bg-[#5d5d5de4]  rounded-t-[4px] overflow-hidden">
                   <textarea
                     className="h-[12rem] w-full bg-inherit px-3 resize-none"
                     placeholder="Message"
@@ -132,7 +151,7 @@ const LandingPage: NextPage = () => {
             </div>
             <div
               id="footer"
-              className="w-full bg-primary-gray lg:bg-white flex flex-row justify-between p-2 items-center"
+              className="w-full bg-[#5d5d5de4]  lg:bg-white text-primary-gray flex flex-row justify-between p-2 items-center"
             >
               <p className="text-lg">@ 2022, Zozys</p>
               <span className="flex flex-row gap-2">

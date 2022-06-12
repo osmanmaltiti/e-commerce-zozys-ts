@@ -19,17 +19,17 @@ export const ViewItem: React.FC<IViewItem> = ({ state, setOpen }) => {
         state ? "inline" : "hidden"
       } w-screen h-screen flex flex-col fixed z-20 bg-[#000000c7] font-poppins`}
     >
-      <div className="h-full w-full lg:h-[90%] lg:w-[80%] 2xl:h-[70%] 2xl:w-[60%] m-auto aspect-square bg-white py-8 lg:rounded-md overflow-y-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 relative lg:place-items-center">
+      <div className="h-full w-full lg:h-fit lg:w-fit lg:p-24 m-auto bg-white py-8 lg:rounded-md overflow-y-auto flex flex-col lg:flex-row gap-10 relative">
         <Icon
           onClick={setOpen}
           icon="eva:close-outline"
           className="top-1 left-1 absolute text-3xl text-primary-gray hover:cursor-pointer"
         />
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col flex-shrink-0 items-center gap-4 mt-auto">
           <img
             alt=""
             src={image}
-            className="w-full h-[15rem] mx-auto object-cover shadow-md"
+            className="aspect-square h-[14rem] mx-auto object-cover shadow-md"
           />
           <div className="w-[70%] flex flex-col items-center gap-2 mx-auto">
             <span className="flex flex-row items-center justify-center gap-6">
@@ -51,12 +51,12 @@ export const ViewItem: React.FC<IViewItem> = ({ state, setOpen }) => {
               Amount: GHS <strong>{(150).toLocaleString()}</strong>
             </p>
             <div className="w-[6rem] h-[.4rem] bg-gray-500 rounded-full"></div>
-            <button className="px-6 mt-6 text-lg bg-primary-gray text-white p-1">
+            <button className="px-6 mt-6 text-lg bg-primary-gray text-white p-1 whitespace-nowrap">
               ADD TO CART
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-2 items-start px-3">
+        <div className="flex flex-col flex-shrink-0 gap-2 items-start px-3 mb-auto">
           <h1 className="text-2xl font-semibold">{name.toUpperCase()}</h1>
           <h2 className="text-xl mt-2 font-semibold capitalize">
             TYPE: {type}

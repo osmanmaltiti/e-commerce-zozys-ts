@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface ILinks {
   state: "mobile" | "desktop";
@@ -6,6 +7,8 @@ interface ILinks {
 }
 
 export const Links: React.FC<ILinks> = ({ state, open }) => {
+  const router = useRouter();
+  const { page } = router.query;
   return (
     <ul
       className={`${
@@ -16,23 +19,33 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
           : "grid grid-cols-2 col-span-2 gap-4 select-none justify-between flex-grow"
       }`}
     >
-      <span className="flex flex-col lg:flex-row items-center place-self-center lg:gap-8">
+      <span className="flex flex-col lg:flex-row items-center place-self-center lg:gap-4">
         <li>
-          <Link href="wood">
-            <a className="text-primary-gray bg-white px-6 lg:py-1 lg:rounded">
+          <Link href="/home?page=wood">
+            <a
+              className={`${
+                page === "wood" ? "text-primary-gray bg-white" : null
+              } px-6 lg:py-1 lg:rounded`}
+            >
               Wood
             </a>
           </Link>
         </li>
         <li>
-          <Link href="door">
-            <a>Door</a>
+          <Link href="/home?page=door">
+            <a
+              className={`${
+                page === "door" ? "text-primary-gray bg-white" : null
+              } px-6 lg:py-1 lg:rounded`}
+            >
+              Door
+            </a>
           </Link>
         </li>
       </span>
       <span className="flex flex-col items-center lg:flex-row lg:place-self-end lg:gap-8">
         <li>
-          <Link href="cart">
+          <Link href="/cart">
             <a>Cart</a>
           </Link>
         </li>

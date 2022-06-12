@@ -5,7 +5,7 @@ export interface IInitialState {
 
 export interface IItems {
   filter: "type" | "dimension" | "name";
-  items: Array<IViewItem>;
+  data: Array<IViewItem>;
 }
 
 export interface IViewItem {
@@ -32,7 +32,7 @@ export const init: IInitialState = {
   items: [
     {
       filter: "type",
-      items: [
+      data: [
         {
           image: "/header2.jpg",
           name: "odum",

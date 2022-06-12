@@ -1,3 +1,4 @@
+import { Wood } from '@prisma/client';
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
@@ -45,12 +46,49 @@ export const createWood = async (woodData: ICreateWood) => {
   }
 };
 
-export const getWood = async () => {
+export const getWood = async (filter: string) => {
   try {
+    let items = Array();
+    let stock: any = {};
+
     const woodData = await prisma.wood.findMany();
+
+    const noDuplicates = (array: any, key: string) => [
+      ...new Map(array.map((item: any) => [item[key], item])).values(),
+    ];
+
+    const filterParams = noDuplicates(woodData, filter) as Array<Wood>;
+    const Filters = filterParams.map((item: any) => item[filter]);
+
+    Filters.forEach((filters: string) => {
+      const FilterByFilter = woodData.filter(
+        (item: any) => item[filter] === filters
+      );
+
+      const itemParams = noDuplicates(FilterByFilter, 'name') as Array<Wood>;
+      const Items = itemParams.map((item: any) => item.name);
+
+      Items.forEach((name: string) => {
+        const filterByName = FilterByFilter.filter(
+          (item: any) => item.name === name
+        );
+        stock = { ...stock, [name]: filterByName.length };
+      });
+
+      const mapping = itemParams.map((item: any) => {
+        return {
+          ...item,
+          stock: stock[item.name],
+        };
+      });
+
+      const finalQuery = { filter: filters, data: mapping };
+      items = [...items, finalQuery];
+    });
+
     return {
       name: 'Success',
-      data: woodData,
+      items,
     };
   } catch (error) {
     if (

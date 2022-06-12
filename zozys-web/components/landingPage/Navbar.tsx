@@ -8,7 +8,7 @@ export const Navbar = () => {
   const lg = useMedia("(min-width: 1024px)");
 
   return (
-    <nav className="w-full h-[3rem] relative bg-primary-gray flex flex-row justify-between lg:justify-around items-center py-2 px-4">
+    <nav className="w-full h-[3rem] relative bg-[#5d5d5de4] flex flex-row justify-between lg:justify-around items-center py-2 px-4">
       <>
         <p className="text-3xl font-semibold lg:hidden">Zozys</p>
         <p className="text-2xl hidden lg:inline">Zozys Enterprise</p>

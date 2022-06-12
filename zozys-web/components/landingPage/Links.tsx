@@ -17,17 +17,17 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
       }`}
     >
       <li>
-        <Link href="home">
+        <Link href="#header">
           <a>HOME</a>
         </Link>
       </li>
       <li>
-        <Link href="services">
+        <Link href="#services">
           <a>SERVICES</a>
         </Link>
       </li>
       <li>
-        <Link href="contact">
+        <Link href="#contact">
           <a>CONTACT</a>
         </Link>
       </li>

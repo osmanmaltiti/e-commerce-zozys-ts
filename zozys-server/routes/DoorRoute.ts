@@ -16,9 +16,10 @@ router.post('/create_door', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/', async (_, res: Response) => {
-  const woodData = await getDoor();
-  res.status(200).json(woodData);
+router.get('/', async (req: Request, res: Response) => {
+  const { filter } = req.query;
+  const doorData = await getDoor(filter as string);
+  res.status(200).json(doorData);
 });
 
 export default router;

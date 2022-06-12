@@ -2,7 +2,7 @@
 
 export const Header = () => {
   return (
-    <header className="w-full h-full relative">
+    <header id="header" className="w-full h-full relative">
       <div className="absolute w-full h-full bg-[#0000006c]"></div>
       <img
         src="/sawmill1.jpg"
