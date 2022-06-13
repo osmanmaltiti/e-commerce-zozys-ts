@@ -10,7 +10,12 @@ const CartSlice = createSlice({
       action: PayloadAction<IItem>
     ) => {
       const { payload } = action;
-      state.cart = [...state.cart, payload];
+
+      const currentItem = current(state.cart).find(
+        (item) => item.id === payload.id
+      );
+
+      !currentItem && (state.cart = [...state.cart, payload]);
     },
     increment: (
       state: { cart: Array<IItem> },

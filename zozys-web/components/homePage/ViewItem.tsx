@@ -5,6 +5,7 @@ import {
   addToCart,
   decrement,
   increment,
+  removeItem,
 } from "../../redux/feature/cart/CartSlice";
 import { RootState } from "../../redux/store/Store";
 
@@ -23,21 +24,25 @@ export const ViewItem: React.FC<IViewItem> = ({ state, setOpen }) => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const currentItem = cartItems.find((item) => item.id === id);
 
-  const onAddToCart = () => {
-    dispatch(
-      addToCart({
-        id,
-        name,
-        image,
-        type,
-        dimension,
-        description,
-        stock,
-        price,
-        quantity: 1,
-        amount: price,
-      })
-    );
+  const onAddOrRemoveFromCart = () => {
+    if (currentItem) {
+      dispatch(removeItem(id));
+    } else {
+      dispatch(
+        addToCart({
+          id,
+          name,
+          image,
+          type,
+          dimension,
+          description,
+          stock,
+          price,
+          quantity: 1,
+          amount: price,
+        })
+      );
+    }
   };
 
   const onIncrement = () => {
@@ -94,10 +99,12 @@ export const ViewItem: React.FC<IViewItem> = ({ state, setOpen }) => {
             </p>
             <div className="w-[6rem] h-[.4rem] bg-gray-500 rounded-full"></div>
             <button
-              onClick={onAddToCart}
-              className="px-6 mt-6 text-lg bg-primary-gray text-white p-1 whitespace-nowrap"
+              onClick={onAddOrRemoveFromCart}
+              className={`${
+                currentItem ? "bg-red-600" : "bg-green-500"
+              } px-6 mt-6 text-lg text-white p-1 whitespace-nowrap`}
             >
-              ADD TO CART
+              {currentItem ? <p>REMOVE FROM CART</p> : <p>ADD TO CART</p>}
             </button>
           </div>
         </div>

@@ -9,7 +9,7 @@ interface IUserData {
   name: string;
   email: string;
   location: string;
-  number: number;
+  number: string;
   password: string;
 }
 
@@ -20,7 +20,7 @@ interface ILoginData {
 
 const unsuccessful = {
   name: 'Error',
-  data: { message: 'Invalid Username or Password' },
+  userdata: { message: 'Invalid Username or Password' },
 };
 
 export const createUser = async (userData: IUserData) => {
@@ -33,22 +33,22 @@ export const createUser = async (userData: IUserData) => {
         name,
         email,
         location,
-        number,
         password,
+        number,
       },
     });
 
     const token = createToken(createUser.id);
     return {
       name: 'Success',
-      data: { createUser, token },
+      userdata: { userInfo: createUser, token },
     };
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2002') {
         return {
           name: error.name,
-          data: {
+          userdata: {
             message: `${error.meta?.target} already exists`,
           },
         };
@@ -69,7 +69,7 @@ export const getUser = async (loginData: ILoginData) => {
       const token = createToken(userdata.id);
       return {
         name: 'Success',
-        data: { userdata, token },
+        userdata: { userInfo: userdata, token },
       };
     } else {
       return unsuccessful;

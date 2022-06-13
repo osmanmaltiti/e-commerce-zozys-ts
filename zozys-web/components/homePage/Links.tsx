@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useMedia } from "../../hooks/useMedia";
 
 interface ILinks {
@@ -13,6 +14,26 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
   const { page } = router.query;
   const lg = useMedia("(min-width: 1024px)");
   const currentPath = router.asPath;
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
+
+  const onLogInOrOut = () => {
+    if (loggedIn) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userdata");
+      router.push("/login");
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <ul
@@ -74,9 +95,9 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
           </Link>
         </li>
         <li>
-          <Link href="/login">
-            <a>Log In</a>
-          </Link>
+          <button onClick={onLogInOrOut}>
+            {loggedIn ? <p className="text-red-400">Log Out</p> : <p>Log In</p>}
+          </button>
         </li>
       </span>
     </ul>

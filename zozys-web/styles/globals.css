@@ -19,3 +19,12 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+  opacity: 1;
+  transition: 0.25s linear;
+}
+.inactive {
+  opacity: 0;
+  transition: 0.25s linear;
+}

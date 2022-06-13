@@ -15,10 +15,11 @@ export const createToken = (id: string): string => {
   }
 };
 
-router.post('/create_user', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response) => {
   const userdata = req.body;
   const newUser = await createUser(userdata);
-  res.json({ newUser });
+
+  res.status(200).json(newUser);
 });
 
 router.post('/login', async (req: Request, res: Response) => {
