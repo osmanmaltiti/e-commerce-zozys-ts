@@ -44,9 +44,9 @@ export const Header = () => {
       </button>
       {images.map((image, index) =>
         index == counter ? (
-          <SliderImage images={image} state={"active"} />
+          <SliderImage key={index} images={image} state={"active"} />
         ) : (
-          <SliderImage images={image} state={"inactive"} />
+          <SliderImage key={index} images={image} state={"inactive"} />
         )
       )}
       <div className="absolute top-0 w-full h-full bg-[#00000049]"></div>
