@@ -34,12 +34,17 @@ const Home = () => {
       <Head>
         <title>Zozys | Home</title>
       </Head>
-      <main className="w-screen h-screen flex flex-col font-poppins overflow-y-auto">
+      <main className="w-screen h-screen flex flex-col font-poppins ">
         <Navbar />
-        <Header />
-        <section className="w-full flex flex-col flex-grow pt-4 pl-2 lg:px-12 gap-4">
-          <nav className="flex flex-row justify-between">
-            <span></span>
+        <section className="w-full h-[calc(100vh-3.3rem)] flex flex-col items-center flex-grow gap-4 overflow-y-auto">
+          <Header />
+          <nav className="flex flex-row justify-between w-[95%]">
+            <span className="text-2xl flex flex-col">
+              {page === "wood"
+                ? "EXPLORE OUR WOOD CATALOGUE"
+                : "EXPLORE OUR DOOR CATALOGUE"}
+              <div className="w-[14rem] h-[.5rem] bg-gray-400 rounded-full"></div>
+            </span>
             <span className="flex flex-row gap-2">
               {FilterOrder.map((item, index) => (
                 <Select
@@ -53,7 +58,7 @@ const Home = () => {
               ))}
             </span>
           </nav>
-          <div className="flex flex-col w-full mt-10 gap-20">
+          <div className="flex flex-col mt-16 gap-20 w-[95%] ml-auto lg:mx-auto">
             {items ? (
               items.map((item, index) => (
                 <CategorySlide
@@ -67,9 +72,9 @@ const Home = () => {
               <CategorySlideSkeleton />
             )}
           </div>
+          <Footer />
         </section>
         <ViewItem state={viewItem} setOpen={() => setViewItem(false)} />
-        <Footer />
       </main>
     </>
   );

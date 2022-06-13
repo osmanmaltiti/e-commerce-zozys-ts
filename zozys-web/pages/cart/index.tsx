@@ -14,7 +14,7 @@ const Cart = () => {
       </Head>
       <main className="w-screen h-screen flex flex-col font-poppins">
         <Navbar />
-        <div className="w-full h-[calc(100vh-48px)] flex-shrink flex flex-col lg:flex-row">
+        <div className="w-full h-[calc(100vh-3.3rem)] flex-shrink flex flex-col lg:flex-row">
           <div className="h-[70%] lg:h-full w-full overflow-y-auto flex flex-col items-center">
             <h1 className="text-xl font-semibold w-full sticky top-0 text-center bg-white">
               CART

@@ -66,7 +66,6 @@ const CartSlice = createSlice({
           );
 
           state.cart = [...updateCurrentCart, increaseQuantity];
-          console.log(state.cart);
         }
       }
     },

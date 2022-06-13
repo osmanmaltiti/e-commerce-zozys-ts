@@ -7,7 +7,7 @@ import { IViewItem } from "../../redux/feature/home/type";
 interface ICategorySlide {
   setOpen: () => void;
   items: Array<IViewItem>;
-  filter: string;
+  filter: string | number;
 }
 
 export const CategorySlide: React.FC<ICategorySlide> = ({
@@ -31,7 +31,7 @@ export const CategorySlide: React.FC<ICategorySlide> = ({
   return (
     <div className="w-full h-[12rem] lg:h-[16rem] flex border-y border-l lg:border-r border-primary-gray relative pl-4">
       <h1 className="absolute bg-primary-gray text-white px-8 py-2 -top-10 left-6 capitalize">
-        {filter}
+        {typeof filter === "string" ? filter : `GHS ${filter}`}
       </h1>
       <div className="h-full w-full flex flex-row items-center gap-4 overflow-x-auto">
         {items.map((item, index) => (

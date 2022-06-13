@@ -57,7 +57,9 @@ const Login: NextPage = () => {
       >
         <div className="hidden lg:flex lg:w-[50%] h-full backdrop-blur-sm"></div>
         <section className="flex flex-col items-center w-full lg:w-[50%] lg:self-end h-full justify-center gap-12 backdrop-blur-sm bg-[#ffffffaf]">
-          <h1 className="text-3xl font-semibold">ZOZYS</h1>
+          <Link href="/">
+            <a className="text-3xl font-semibold">ZOZYS</a>
+          </Link>
           <form
             className="flex flex-col w-[90%] lg:w-[60%] gap-y-10 items-center"
             onSubmit={formik.handleSubmit}

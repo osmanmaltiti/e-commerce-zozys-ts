@@ -27,7 +27,7 @@ const LandingPage: NextPage = () => {
                 <h3 className="text-2xl font-semibold text-center">
                   WE OFFER A VARIETY OF SERVICES
                 </h3>
-                <div className="w-[14rem] h-[.75rem] bg-white rounded-full"></div>
+                <div className="w-[14rem] h-[.5rem] bg-white rounded-full"></div>
                 <ul className="flex flex-col items-center lg:items-start mt-4">
                   <li className="text-xl font-poppins">Wood Processing</li>
                   <li className="text-xl">Wood Sales</li>
@@ -52,8 +52,8 @@ const LandingPage: NextPage = () => {
               <h3 className="text-3xl text-primary-gray font-medium text-center">
                 EXPLORE OUR INVENTORY
               </h3>
-              <div className="w-[14rem] h-[.75rem] bg-[#5d5d5de4]  rounded-full"></div>
-              <span className="flex flex-col lg:flex-row gap-3 mt-8">
+              <div className="w-[14rem] h-[.5rem] bg-[#5d5d5de4]  rounded-full"></div>
+              <span className="flex flex-col lg:flex-row gap-10 mt-8">
                 <button
                   onClick={() =>
                     router.push({
@@ -153,8 +153,8 @@ const LandingPage: NextPage = () => {
               id="footer"
               className="w-full bg-[#5d5d5de4]  lg:bg-white text-primary-gray flex flex-row justify-between p-2 items-center"
             >
-              <p className="text-lg">@ 2022, Zozys</p>
-              <span className="flex flex-row gap-2">
+              <p className="text-lg">&copy; ZOZYS ENTERPRISE 2022</p>
+              <span className="flex flex-row gap-4">
                 <Icon icon="akar-icons:whatsapp-fill" className="text-xl" />
                 <Icon icon="el:facebook" className="text-xl" />
                 <Icon icon="akar-icons:twitter-fill" className="text-xl" />

@@ -2,7 +2,9 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useMedia } from "../../hooks/useMedia";
+import { RootState } from "../../redux/store/Store";
 
 interface ILinks {
   state: "mobile" | "desktop";
@@ -11,10 +13,11 @@ interface ILinks {
 
 export const Links: React.FC<ILinks> = ({ state, open }) => {
   const router = useRouter();
-  const { page } = router.query;
-  const lg = useMedia("(min-width: 1024px)");
   const currentPath = router.asPath;
+  const lg = useMedia("(min-width: 1024px)");
+  const { page } = router.query;
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const cartSize = useSelector((state: RootState) => state.cart.cart.length);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,25 +72,34 @@ export const Links: React.FC<ILinks> = ({ state, open }) => {
           </Link>
         </li>
       </span>
-      <span className="flex flex-col items-center lg:flex-row lg:place-self-end lg:gap-8">
+      <span className="flex flex-col items-center lg:flex-row lg:place-self-end lg:gap-4">
         <li>
           <Link href="/cart">
             {lg ? (
-              <Icon
-                icon="clarity:shopping-cart-solid"
-                className={`${
-                  currentPath.includes("cart")
-                    ? "text-primary-gray bg-white"
-                    : "text-white"
-                } text-3xl rounded-full  p-1 hover:cursor-pointer`}
-              />
+              <span className="relative">
+                <Icon
+                  icon="clarity:shopping-cart-solid"
+                  className={`${
+                    currentPath.includes("cart")
+                      ? "text-primary-gray bg-white"
+                      : "text-white"
+                  } text-3xl rounded p-1 hover:cursor-pointer`}
+                />
+                <p
+                  className={`${
+                    cartSize > 0 ? "inline" : "hidden"
+                  } absolute w-5 h-5 -top-2 bg-green-500 text-center leading-5 rounded-full text-xs -right-2`}
+                >
+                  {cartSize}
+                </p>
+              </span>
             ) : (
               <a
                 className={`${
                   currentPath.includes("cart")
                     ? "text-primary-gray bg-white"
                     : "text-white"
-                } px-6 lg:py-1 lg:rounded`}
+                } px-6 lg:py-1 lg:rounded relative`}
               >
                 Cart
               </a>
