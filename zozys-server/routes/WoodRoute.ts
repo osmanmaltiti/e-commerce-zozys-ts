@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { createWood, getWood } from '../api/wood';
+import { createWood, getWood } from '../controllers/wood';
 
 const router = Router();
 

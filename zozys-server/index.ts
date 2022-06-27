@@ -7,7 +7,7 @@ import UserRoute from './routes/UserRoute';
 import WoodRoute from './routes/WoodRoute';
 
 dotenv.config({
-  path: './.env',
+  path: './',
 });
 
 const app: Application = Express();
@@ -18,12 +18,12 @@ app.use('/api/user', UserRoute);
 app.use('/api/wood', WoodRoute);
 app.use('/api/door', DoorRoute);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 export const prisma = new PrismaClient();
 
 const boot = (): void => {
   try {
-    app.listen(port, () => console.log('Server is listening on port 5000'));
+    app.listen(port, () => console.log('Server is listening on port ' + port));
   } catch (error) {
     console.log(error);
   }

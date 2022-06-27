@@ -1,12 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
+import { Icon } from "@iconify/react";
 import Head from "next/head";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import { ItemCard } from "../../components/cart/ItemCard";
 import { Navbar } from "../../components/homePage/Navbar";
+import { clearCart } from "../../redux/feature/cart/CartSlice";
 import { RootState } from "../../redux/store/Store";
 
 const Cart = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
+  const subtotal = cartItems.reduce((acc, curr) => acc + curr.amount, 0);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -15,7 +22,7 @@ const Cart = () => {
       <main className="w-screen h-screen flex flex-col font-poppins">
         <Navbar />
         <div className="w-full h-[calc(100vh-3.3rem)] flex-shrink flex flex-col lg:flex-row">
-          <div className="h-[70%] lg:h-full w-full overflow-y-auto flex flex-col items-center">
+          <div className="h-[70%] lg:h-full w-full lg:w-[60%] overflow-y-auto flex flex-col items-center">
             <h1 className="text-xl font-semibold w-full sticky top-0 text-center bg-white">
               CART
             </h1>
@@ -49,10 +56,31 @@ const Cart = () => {
                   />
                 ))
             ) : (
-              <h1 className="text-gray-500 m-auto">Nothing to display here</h1>
+              <div className="text-gray-500 m-auto grid place-items-center">
+                <p>Nothing to display here</p>
+                <button
+                  className="text-black flex flex-row items-center gap-1"
+                  onClick={() => router.back()}
+                >
+                  <Icon icon="bx:arrow-back" />
+                  <p>shop now</p>
+                </button>
+              </div>
             )}
           </div>
-          <div className="h-[30%] lg:h-full flex-shrink-0 w-full lg:border-t border-[#494949] lg:w-[50%] p-2 bg-primary-gray flex flex-col items-center">
+          <div className="h-[30%] lg:h-full flex-shrink-0 w-full lg:border-t border-[#494949] lg:w-[40%] p-4 bg-primary-gray flex flex-col items-center ">
+            <div className="w-full text-white border border-white p-2 rounded-md grid grid-cols-2">
+              <p>Number of items</p>
+              <p className="place-self-end">{cartItems.length}</p>
+              <p>Subtotal</p>
+              <p className="place-self-end">GHS {subtotal}</p>
+            </div>
+            <button
+              className="text-white mt-4 hover:text-red-500 self-end"
+              onClick={() => dispatch(clearCart())}
+            >
+              Clear
+            </button>
             <button className="bg-white py-2 w-[80%] mt-auto">
               Proceed To Checkout
             </button>

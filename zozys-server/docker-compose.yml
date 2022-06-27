@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  zozys-service:
+    container_name: zozys-api
+    build: ./
+    command: npm start
+    working_dir: /usr/src/zozys-api
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./:/usr/src/zozys-api
+    env_file:
+      - production.env
+    depends_on:
+      - postgres
+    links:
+      - 'postgres'
+
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=maltiti
+      - POSTGRES_PASSWORD=hero108
+      - POSTGRES_DB=zozydb
+      - POSTGRES_HOST=postgres

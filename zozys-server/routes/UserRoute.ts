@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import jwt from 'jsonwebtoken';
-import { createUser, getUser } from '../api/users';
+import { createUser, getUser } from '../controllers/users';
 
 const router = Router();
 

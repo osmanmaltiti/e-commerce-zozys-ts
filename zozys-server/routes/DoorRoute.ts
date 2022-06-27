@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { createDoor, getDoor } from '../api/door';
+import { createDoor, getDoor } from '../controllers/door';
 
 const router = Router();
 

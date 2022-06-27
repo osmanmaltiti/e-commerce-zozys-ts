@@ -101,7 +101,7 @@ export const ViewItem: React.FC<IViewItem> = ({ state, setOpen }) => {
             <button
               onClick={onAddOrRemoveFromCart}
               className={`${
-                currentItem ? "bg-red-600" : "bg-green-500"
+                currentItem ? "bg-red-600" : "bg-green-500 animate-bounce"
               } px-6 mt-6 text-lg text-white p-1 whitespace-nowrap`}
             >
               {currentItem ? <p>REMOVE FROM CART</p> : <p>ADD TO CART</p>}
