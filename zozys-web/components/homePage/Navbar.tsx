@@ -14,11 +14,13 @@ export const Navbar = () => {
       <Link href="/">
         <a className="text-xl lg:flex-grow">ZOZYS ENTERPRISE</a>
       </Link>
-      <Icon
-        onClick={() => setOpenMenu(!openMenu)}
-        icon="dashicons:menu"
-        className="text-3xl lg:hidden"
-      />
+      {!lg && (
+        <Icon
+          onClick={() => setOpenMenu(!openMenu)}
+          icon="dashicons:menu"
+          className="text-3xl lg:hidden"
+        />
+      )}
       <>
         {lg ? (
           <Links state="desktop" open={openMenu} />

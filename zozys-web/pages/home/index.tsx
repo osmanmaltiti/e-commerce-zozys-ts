@@ -36,10 +36,10 @@ const Home = () => {
       </Head>
       <main className="w-screen h-screen flex flex-col font-poppins ">
         <Navbar />
-        <section className="w-full h-[calc(100vh-3.3rem)] flex flex-col items-center flex-grow gap-4 overflow-y-auto">
+        <section className="w-full h-[calc(100vh-3.3rem)] flex flex-col items-center flex-grow gap-4 overflow-y-auto lg:scrollbar-thin scrollbar-thumb-primary-gray">
           <Header />
           <nav className="flex flex-row justify-between w-[95%]">
-            <span className="text-2xl flex flex-col">
+            <span className="text-2xl flex-col lg:flex hidden">
               {page === "wood"
                 ? "EXPLORE OUR WOOD CATALOGUE"
                 : "EXPLORE OUR DOOR CATALOGUE"}

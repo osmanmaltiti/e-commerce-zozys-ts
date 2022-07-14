@@ -29,18 +29,8 @@ a {
   transition: 0.25s linear;
 }
 
-section::-webkit-scrollbar {
-  width: 0.5rem;
-  background-color: transparent;
-  border: 1px solid rgba(127, 127, 127, 0.358);
-}
-
 section::-webkit-scrollbar-thumb {
-  width: 0.5rem;
-  background-color: gray;
-  border-radius: 2px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
+  border-radius: 6px;
 }
 
 div::-webkit-scrollbar {

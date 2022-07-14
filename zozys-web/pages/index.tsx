@@ -4,7 +4,6 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Header } from "../components/landingPage/Header";
-import { Navbar } from "../components/landingPage/Navbar";
 
 const LandingPage: NextPage = () => {
   const router = useRouter();
@@ -15,8 +14,7 @@ const LandingPage: NextPage = () => {
         <title>Zozys Enterprise</title>
       </Head>
       <div className="w-screen h-screen flex flex-col font-poppins text-white">
-        <Navbar />
-        <section className="w-full h-[calc(100vh-3rem)] overflow-y-auto">
+        <section className="w-full h-[100vh] overflow-y-auto lg:scrollbar-thin scrollbar-thumb-primary-gray">
           <Header />
           <main className="w-full flex flex-col">
             <div
