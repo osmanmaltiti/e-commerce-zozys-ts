@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { Icon } from "@iconify/react";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { ItemCard } from "../../components/cart/ItemCard";
 import { Navbar } from "../../components/homePage/Navbar";
+import { RouteGuard } from "../../features/route-guard";
 import { clearCart } from "../../redux/feature/cart/CartSlice";
 import { RootState } from "../../redux/store/Store";
 
@@ -92,3 +94,11 @@ const Cart = () => {
 };
 
 export default Cart;
+
+export const getServerSideProps: GetServerSideProps = RouteGuard(
+  async (context) => {
+    return {
+      props: {},
+    };
+  }
+);

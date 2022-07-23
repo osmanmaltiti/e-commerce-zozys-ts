@@ -11,7 +11,8 @@ export const getUser = async (url: string, user: IUser) => {
       `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
       { ...user }
     );
-
-    return res.data;
+    if (res.data) {
+      return { name: res.data.name, token: res.data.name };
+    }
   }
 };

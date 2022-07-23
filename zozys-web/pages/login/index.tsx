@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { setCookie } from "cookies-next";
 import { useFormik } from "formik";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -22,11 +23,9 @@ const Login: NextPage = () => {
   });
 
   if (typeof data !== "undefined") {
-    const { name, userdata } = data;
+    const { name, token } = data;
     if (name === "Success") {
-      const { token, userInfo } = userdata;
-      localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("userdata", JSON.stringify(userInfo));
+      setCookie("token", token);
       router.push("/home?page=wood");
     } else console.log(data);
   }
