@@ -1,7 +1,8 @@
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { Request, Response } from 'express';
 import { v4 } from 'uuid';
+import { createToken } from '../helpers/createToken';
 import { prisma } from '../index';
-import { createToken } from '../routes/UserRoute';
 
 const uid = v4();
 
@@ -19,12 +20,14 @@ interface ILoginData {
 }
 
 const unsuccessful = {
-  name: 'Error',
-  userdata: { message: 'Invalid Username or Password' },
+  name: 'Failed',
+  message: 'Invalid Username or Password',
 };
 
-export const createUser = async (userData: IUserData) => {
-  const { name, email, location, number, password } = userData;
+export const createUser = async (req: Request, res: Response) => {
+  const userdata = req.body as unknown as IUserData;
+
+  const { name, email, location, number, password } = userdata;
 
   try {
     const createUser = await prisma.user.create({
@@ -39,42 +42,38 @@ export const createUser = async (userData: IUserData) => {
     });
 
     const token = createToken(createUser.id);
-    return {
-      name: 'Success',
-      userdata: { userInfo: createUser, token },
-    };
+
+    res
+      .status(200)
+      .json({ name: 'Success', userdata: { userInfo: createUser, token } });
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2002') {
-        return {
-          name: error.name,
-          userdata: {
-            message: `${error.meta?.target} already exists`,
-          },
-        };
+        res.status(400).json({ name: 'failed', message: error.message });
       }
     }
   }
 };
 
-export const getUser = async (loginData: ILoginData) => {
-  const { email, password } = loginData;
+export const getUser = async (req: Request, res: Response) => {
+  const userdata = req.body as unknown as ILoginData;
 
-  const userdata = await prisma.user.findUnique({
+  const { email, password } = userdata;
+
+  const userData = await prisma.user.findUnique({
     where: { email },
   });
 
-  if (userdata) {
-    if (userdata?.password === password) {
-      const token = createToken(userdata.id);
-      return {
-        name: 'Success',
-        userdata: { userInfo: userdata, token },
-      };
+  if (userData) {
+    if (userData?.password === password) {
+      const token = createToken(userData.id);
+      res
+        .status(200)
+        .json({ name: 'Success', userdata: { userInfo: userData, token } });
     } else {
-      return unsuccessful;
+      res.status(400).json(unsuccessful);
     }
   } else {
-    return unsuccessful;
+    res.status(400).json(unsuccessful);
   }
 };

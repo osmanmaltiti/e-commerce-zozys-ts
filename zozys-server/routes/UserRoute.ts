@@ -1,35 +1,16 @@
-import { Request, Response, Router } from 'express';
-import jwt from 'jsonwebtoken';
+import { Router } from 'express';
 import { createUser, getUser } from '../controllers/users';
+import { acceptPayment } from '../transaction/AcceptPayment';
+import { verifyPayment } from '../transaction/VerifyPayment';
 
 const router = Router();
 
-export const createToken = (id: string): string => {
-  try {
-    const token = jwt.sign({ data: id }, process.env.ACCESSTOKEN as string, {
-      expiresIn: '4m',
-    });
-    return token;
-  } catch (error) {
-    return error as string;
-  }
-};
+router.post('/register', createUser);
 
-router.post('/register', async (req: Request, res: Response) => {
-  const userdata = req.body;
-  const newUser = await createUser(userdata);
+router.post('/login', getUser);
 
-  res.status(200).json(newUser);
-});
+router.post('/checkout_items', acceptPayment);
 
-router.post('/login', async (req: Request, res: Response) => {
-  const userdata = req.body;
-  const currentUser = await getUser(userdata);
-  const { name } = currentUser;
-
-  name === 'Success'
-    ? res.status(200).json(currentUser)
-    : res.status(401).json(currentUser);
-});
+router.get('/verify_payment', verifyPayment);
 
 export default router;
