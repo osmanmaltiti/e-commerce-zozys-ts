@@ -26,7 +26,6 @@ const unsuccessful = {
 
 export const createUser = async (req: Request, res: Response) => {
   const userdata = req.body as unknown as IUserData;
-
   const { name, email, location, number, password } = userdata;
 
   try {
@@ -40,6 +39,7 @@ export const createUser = async (req: Request, res: Response) => {
         number,
       },
     });
+    console.log({ name, email, location, number, password });
 
     const token = createToken(createUser.id);
 
@@ -62,10 +62,16 @@ export const getUser = async (req: Request, res: Response) => {
 
   const userData = await prisma.user.findUnique({
     where: { email },
+    select: {
+      password: true,
+      email: true,
+      name: true,
+      id: true,
+    },
   });
 
   if (userData) {
-    if (userData?.password === password) {
+    if (userData.password === password) {
       const token = createToken(userData.id);
       res
         .status(200)

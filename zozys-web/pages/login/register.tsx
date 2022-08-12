@@ -19,13 +19,17 @@ const Register: NextPage = () => {
     setObscure(!obscure);
   };
 
-  const { data, mutate } = useSWR(["/api/user/register", user], createUser, {
-    revalidateOnFocus: false,
-    revalidateOnMount: false,
-    revalidateOnReconnect: false,
-    revalidateIfStale: false,
-    shouldRetryOnError: false,
-  });
+  const { data, mutate, error } = useSWR(
+    ["/api/user/register", user],
+    createUser,
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+      shouldRetryOnError: false,
+    }
+  );
 
   if (typeof data !== "undefined") {
     const { name, userdata } = data;
@@ -35,6 +39,10 @@ const Register: NextPage = () => {
       localStorage.setItem("userdata", JSON.stringify(userInfo));
       router.push("/home?page=wood");
     } else console.log(data);
+  }
+
+  if (typeof error !== "undefined") {
+    console.log(error);
   }
 
   const formik = useFormik({

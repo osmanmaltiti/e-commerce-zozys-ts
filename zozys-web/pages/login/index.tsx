@@ -23,9 +23,10 @@ const Login: NextPage = () => {
   });
 
   if (typeof data !== "undefined") {
-    const { name, token } = data;
+    const { name, userdata } = data;
     if (name === "Success") {
-      setCookie("token", token);
+      setCookie("token", userdata.token);
+      setCookie("userdata", userdata.userInfo);
       router.push("/home?page=wood");
     } else console.log(data);
   }

@@ -12,7 +12,7 @@ export const getUser = async (url: string, user: IUser) => {
       { ...user }
     );
     if (res.data) {
-      return { name: res.data.name, token: res.data.name };
+      return { name: res.data.name, userdata: res.data.userdata };
     }
   }
 };

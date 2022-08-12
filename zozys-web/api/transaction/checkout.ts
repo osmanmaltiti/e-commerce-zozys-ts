@@ -1,19 +1,11 @@
 import axios, { AxiosError } from "axios";
 
-export interface INewUser {
-  name: string;
-  email: string;
-  number: string;
-  location: string;
-  password: string;
-}
-
-export const createUser: any = async (url: string, user: INewUser) => {
-  if (user) {
+export const checkoutItem = async (url: any, transactionData: any) => {
+  if (transactionData !== null) {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`,
-        { ...user }
+        transactionData
       );
       return res.data;
     } catch (error) {

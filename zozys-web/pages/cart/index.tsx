@@ -1,9 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { Icon } from "@iconify/react";
+import { getCookie } from "cookies-next";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useSWR from "swr";
+import { checkoutItem } from "../../api/transaction/checkout";
 import { ItemCard } from "../../components/cart/ItemCard";
 import { Navbar } from "../../components/homePage/Navbar";
 import { RouteGuard } from "../../features/route-guard";
@@ -13,8 +17,40 @@ import { RootState } from "../../redux/store/Store";
 const Cart = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const subtotal = cartItems.reduce((acc, curr) => acc + curr.amount, 0);
+  const [transactionData, setTransactionData] = React.useState<{} | null>(null);
+  const [display, setDisplay] = React.useState<boolean>(false);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { data, error } = useSWR(
+    ["/api/user/checkout_items", transactionData],
+    checkoutItem,
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+      revalidateIfStale: false,
+      shouldRetryOnError: false,
+    }
+  );
+
+  React.useMemo(() => {
+    if (data) {
+      setDisplay(true);
+    }
+  }, [data]);
+
+  const onCheckout = () => {
+    const userdata = JSON.parse(String(getCookie("userdata")));
+
+    const data = {
+      name: userdata.name,
+      email: userdata.email,
+      amount: subtotal * 100,
+      ref: `${userdata.id}-${Date.now()}`,
+    };
+
+    subtotal > 0 && setTransactionData(data);
+  };
 
   return (
     <>
@@ -83,11 +119,19 @@ const Cart = () => {
             >
               Clear
             </button>
-            <button className="bg-white py-2 w-[80%] mt-auto">
+            <button
+              onClick={onCheckout}
+              className="bg-white py-2 w-[80%] mt-auto"
+            >
               Proceed To Checkout
             </button>
           </div>
         </div>
+        <iframe
+          src={data?.data.data.authorization_url}
+          style={{ display: display ? "flex" : "none" }}
+          className="fixed bg-white top-0 left-0 w-full h-full scrollbar-thin scroll-radius overflow-auto"
+        ></iframe>
       </main>
     </>
   );
